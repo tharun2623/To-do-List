@@ -1,0 +1,746 @@
+.LoginHTML {
+    background-color: rgb(48, 94, 94);
+    overflow: hidden;
+    margin: auto;
+}
+/* Container for the login body */
+.bodyContainer{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+
+.slogan{
+    color: #f9f4f4;
+    margin-top: 0 auto;
+}
+
+.wordingBody{
+    padding-left: 80px;
+}
+
+.sloganAnimation {
+    color: #ffffff; /* White text for contrast */
+    font-size: 3.5rem; /* Large font size */
+    font-weight: 100;
+    font-size: 30px;
+    text-align: center;
+    text-transform: capitalize; /* Uppercase text */
+    position: relative;
+    animation: fadeIn 2.10s ease-in-out; /* Fade-in animation */
+    animation-direction: alternate-reverse ;
+    font-family: cursive;
+    margin: 10px 0px 0px 0px;
+}
+
+.headertitle{
+    color: rgb(255, 216, 110);
+    font-size: 100px;
+    margin: 0px 0px 5px 0px;
+    font-family: fantasy;
+    letter-spacing: 3px;
+    text-align: center;
+    
+}
+
+/* .sloganAnimation::after {
+    content: '';
+    bottom: -10px;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white line */
+/* } */
+
+/* Animation for fading in the text */
+/* @keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    50%{
+        scale:2;
+        border-radius: 0;
+    }
+    100% {
+        opacity: 1;
+        border-radius: 50%;
+        scale:2;
+    }
+}  */
+
+@media screen and  (min-width: 320px) and (max-width: 768px){
+    #login{
+        width: 80% ;
+    }
+}
+/* Responsive design for smaller screens */
+@media screen and (max-width: 768px) {
+    .sloganAnimation {
+        font-size: 20px; /* Smaller font size for mobile */
+    }
+
+    .headertitle{
+        font-size: 75px;
+    }   
+
+    .bodyContainer{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .LoginBody{
+        max-width: 50px;
+    }
+
+    .forgotPassword{
+        margin-left: 0 !important;
+    }
+
+    .wordingBody{
+        padding-left: 0;
+    }
+}
+.LoginBody {
+    width: 100%;
+    max-width: 500px; /* Set maximum width */
+    margin: 0 auto; /* Center horizontally with vertical spacing */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light gray background */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    font-family: Arial, sans-serif; /* Consistent font */   
+    transform: translateY(20px); /* Start 20px below its final position */
+    animation: fadeInSlideUp 3s ease-in-out; /* Apply animation */
+    }
+
+/* Keyframes for the Login body animation */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Styling for paragraph labels */
+.LoginBody p {
+    margin: 15px 0 5px; /* Spacing around the text */
+    font-size: 16px; /* Readable font size */
+    color: #333; /* Dark text color */
+    
+}
+
+/* Input fields styling */
+.LoginBody input {
+    width: 100%; /* Take full container width */
+    padding: 10px; /* Add inner padding */
+    margin: 5px 0 15px 0; /* Add spacing around fields */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Slightly rounded corners */
+    box-sizing: border-box; /* Include padding and border in width/height */
+}
+
+/* Login button styling */
+.LoginBody button {
+    width: 100%; /* Full-width button */
+    padding: 10px;
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded button corners */
+    font-size: 16px;
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.loginbtn{
+    background-color: #3c9aff;
+}
+
+.loginbtn:hover{
+    background-color: #0c319f;
+}
+
+header{
+    display: flex;
+    align-items: center;
+}
+
+p.wrongVal{
+    color: red;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px 0px 20px 0px;
+    display: none;
+}
+
+input.LoginChecker{
+    width: 10px;
+    margin-right: 10px;
+    display:flex ;
+}
+
+/* Title */
+.loginheader{
+    margin-left: 45%;
+}
+
+.PasswordCheck{
+    display: flex;
+    font-size: 17px;
+}
+
+.passwordChecker{
+    margin-top: 4px;
+}
+
+.forgotPassword{
+    padding: 30px;
+    margin-left: 139px;
+}
+
+.borderline{
+    align-items: center;
+    border-bottom: 2px solid #787a7c;
+    display: flex;
+    margin: 2px 4px;
+}
+
+.createAccount{
+    margin: 15px 0px 0px 0px;
+    background-color: #42b72a;
+}
+
+.createAccount:hover {
+    background-color: #1b7a08;
+}
+
+
+
+/* -------------------------------------------------------------------------------------------------------- */
+/* tharun.html */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    height: 100%;
+}
+
+header{
+    position: fixed;
+    width: 100%;
+    display: flex;
+
+}
+
+#navbarContainer{
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;    
+    background-color: rgb(48, 94, 94);
+    width: 100%;
+    height: 12vh;
+    transition: margin-left 0.3s ease-in-out;
+    margin-left: 0;
+}
+
+#navbarContainer h1 {   
+    text-align: center;
+    font-size: 45px;
+    font-weight: bold;
+    font-family: system-ui;
+}
+
+.navbartitle{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: #ffffff;    
+}
+
+.user-info {
+    display: flex;
+    align-items: center; /* Pushes it to the right */
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+
+.mainUsername {
+    margin-left: 10px;
+    margin-right: 10px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidenav {
+    height: 100vh;
+    width: 0;
+    position: fixed;
+    background-color: rgb(48, 94, 94);
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 10px;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    right: 14px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: white;
+}
+
+.openSidebar{
+    margin-left: 10px;
+    font-size: 30px;
+    color: white;
+    font-weight: 400;
+}
+
+.sidebarTite{
+    display: flex;
+}
+
+.sidebarTite h1{
+    font-size: 25px;
+    color: white;
+    margin-left: 60px;
+    margin-top: 18px;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: inherit;
+}
+
+.sidebarTite a{
+    margin-top: 7px;
+}
+
+.sidebarTite i:hover{
+    font-weight: bold;
+    color: white;
+    font-size: 30px;
+}
+
+/* Sidebar Menu List */
+.activeList {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+    transition: background 0.2s ease-in-out;
+}
+
+.activeList li {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    transition: background 0.2s ease-in-out;
+    white-space: nowrap;  /* Prevents text from wrapping */
+    overflow: hidden;      /* Hides overflow content */
+    text-overflow: ellipsis;
+}
+
+.activeList li span {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Ensures uniform spacing */
+    width: 100%; /* Makes the entire list item clickable */
+}
+
+.activeList li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.activeList a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    flex-grow: 1; /* Ensures text aligns properly */
+}
+
+.activeList i {
+    color: white;
+    width: 20px; /* Ensures icons are aligned */
+    text-align: center;
+}
+
+.sidebarFooter {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;  /* Prevents text from wrapping */
+    overflow: hidden;      /* Hides overflow content */
+    text-overflow: ellipsis;
+}
+
+.sidebarFooter span {
+    font-size: 12px;
+    color: #ffffff;
+    margin: 5px 0;
+    display: block;
+}
+
+/*Main Content*/
+.mainPagebodyContainer{
+    gap:0;
+    top: 0;
+    height: auto;
+}
+
+.content {
+    display: none;  /* All divs hidden by default */
+    padding: 20px;
+    background: white;
+    min-height: 300px; /* Ensure they take up space when displayed */
+}
+
+.content.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers vertically */
+    align-items: center; /* Centers horizontally */
+    height: 40vh;
+    width: 100%; /* Ensures full width */
+    text-align: center;
+}
+
+.Tasktitle{
+    text-align: center;
+    width:34vh;
+    position: absolute;
+    margin: 7% auto auto 44%;
+}
+
+#taskList{
+    display: grid;
+
+}
+
+.myTaskcontent{
+    display: grid;
+    margin-top: 45%;
+}
+
+.taskUppercontent{
+    display: flex;
+    align-items: center;
+}
+
+.taskCheckbox {
+    flex-shrink: 0; /* Prevents checkbox from expanding */
+}
+
+.options {
+    margin-left: auto; /* Pushes it to the right */
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+.taskTitle{
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+.schedhuleContent textarea{
+    margin-top: 15px;
+    width: 100%;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+}
+
+.taskCheckbox {
+    display: flex;
+    align-items: center;
+}
+
+/* Hide default checkbox */
+.taskCheckbox input[type="checkbox"] {
+    display: none;
+}
+
+/* Custom checkbox design */
+.taskCheckbox label {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 2px solid #4CAF50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Checkmark (using FontAwesome or Unicode) */
+.taskCheckbox label::after {
+    content: "\f00c"; /* Unicode for checkmark (✔) */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 14px;
+    color: white;
+    display: none;
+}
+
+/* Checkbox checked state */
+.taskCheckbox input[type="checkbox"]:checked + label {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+/* Show checkmark when checked */
+.taskCheckbox input[type="checkbox"]:checked + label::after {
+    display: block;
+}
+
+
+.options{
+    padding-left: 40px;
+}
+
+.options button{
+    border: none;
+}
+
+.schedhuleContentbtns{
+    margin-top: 10px;
+    display: flex;
+    gap:20px;
+}
+
+.schedhuleContentbtns button{
+    color:#41464b;
+}
+
+.taskLowercontent{
+    display: grid;
+}
+/*Date Popup*/
+
+.datePopup {
+    display: none;  /* Hides the popup by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 10);
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.priorityPopup {
+    display: none;  /* Hides the popup by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 10);
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.popup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.close-btn {
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.close-btn:hover {
+    color: red;
+    font-size: 25px;
+}
+
+.priorityContent a{
+    color: black;
+}
+
+.priorityPopup i{
+    color: black;
+}
+
+/*Add Popup*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dim background */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    place-items: center;
+}
+
+.modal-content {
+    width: 50%;  /* Reduce width */
+    max-width: 500px; /* Set a max width */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2), 0 7px 20px rgba(0, 0, 0, 0.17);
+    animation: modalopen 0.5s ease-in-out;
+    position: relative;
+}
+
+/* Container for the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+/* Display the first <li> by default */
+.dropdown-content li:first-child {
+    display: block;
+    color: white;
+}
+
+/* Hide all other <li> elements by default */
+.dropdown-content li {
+    display: none;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Show all <li> elements when dropdown is hovered */
+.dropdown:hover .dropdown-content li {
+    display: block;
+}
+
+.dropbtn i {
+    margin-left: 8px; /* Adjust the value as needed */
+}
+
+#completedTasks {
+    min-height: 100px; /* Ensures space remains */
+    visibility: visible; /* Keeps element space even if empty */
+}
+
+.hidden {
+    display: none !important; /* Fully hides taskList when needed */
+}
+
+
+/* Optional: Add responsiveness */
+@media screen and (max-width: 600px) {
+    .modal-content {
+        width: 80%; /* Smaller screens get a slightly larger width */
+    }
+}
+
+
+.modal-header{
+    background-color: rgb(48, 94, 94);
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+}
+
+.modal-title{
+    display: flex;
+    flex-direction: row;
+}
+
+.modal-footer{
+    display: flex;
+    justify-content: space-between !important;;
+} 
+
+.contents input{
+    border: none;
+    width: 67vh;
+    outline: none;
+}   
+
+.contents textarea{
+    margin-top: 20px;
+    border: none;
+    outline: none;
+}
+
+.modal-footer button{
+    width: 200px;
+}
+
+  
+  
+  
+  
+  
+
+

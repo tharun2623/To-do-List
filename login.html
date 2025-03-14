@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>Just Do It</title>
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body class="LoginHTML">
+        <main>
+            <div class="bodyContainer">
+                <div class="wordingBody">
+                    <h1 class="headertitle">Just Do It!</h1>
+                    <div class="slogan">
+                        <div class="sloganAnimation">
+                            <h1>Commit to the process,</h1>
+                            <h1>Witness the progress.</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="LoginBody" id="login">
+                    <label>Username:</label>
+                    <input type="text" name="username" placeholder="Enter your username" id="uname">
+                    <p class="wrongVal" id="wrongUser">Incorrect Username</p>
+                    
+                    <label>Password:</label>
+                    <input type="password" name="password" placeholder="Enter your password" id="upassword">
+                    <p class="wrongVal" id="wrongPassword">Incorrect Password</p>
+                    <div class="PasswordCheck">
+                        <input class="LoginChecker" type="checkbox" onclick="viewPassword()">
+                        <small class="passwordChecker">Show Password</small> 
+                    </div>               
+    
+                    <button class="loginbtn" type="button" onclick="login()">Login</button>
+    
+                    <div class="forgotPassword">
+                        <a href="">Forgot your password?</a>
+                    </div>
+    
+                    <div class="borderline"></div>
+    
+                    <div >
+                        <button class="createAccount" type="button" onclick="">Create a new account</button>
+                    </div>
+                    
+                </div>
+            </div>  
+        </main>
+        <script src="Script.js"></script>
+    </body>
+</html>
