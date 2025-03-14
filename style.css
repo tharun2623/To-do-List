@@ -233,10 +233,15 @@ body {
     height: 100%;
 }
 
+.mainContent{
+    margin-top: 80px;
+}
+
 header{
     position: fixed;
     width: 100%;
     display: flex;
+    top:0;
 
 }
 
@@ -247,9 +252,6 @@ header{
     justify-content: space-between;    
     background-color: rgb(48, 94, 94);
     width: 100%;
-    height: 12vh;
-    transition: margin-left 0.3s ease-in-out;
-    margin-left: 0;
 }
 
 #navbarContainer h1 {   
@@ -423,9 +425,7 @@ header{
 
 .content {
     display: none;  /* All divs hidden by default */
-    padding: 20px;
     background: white;
-    min-height: 300px; /* Ensure they take up space when displayed */
 }
 
 .content.active {
@@ -433,26 +433,13 @@ header{
     flex-direction: column;
     justify-content: center; /* Centers vertically */
     align-items: center; /* Centers horizontally */
-    height: 40vh;
     width: 100%; /* Ensures full width */
     text-align: center;
 }
 
 .Tasktitle{
     text-align: center;
-    width:34vh;
-    position: absolute;
-    margin: 7% auto auto 44%;
-}
-
-#taskList{
-    display: grid;
-
-}
-
-.myTaskcontent{
-    display: grid;
-    margin-top: 45%;
+    width: 100%;
 }
 
 .taskUppercontent{
