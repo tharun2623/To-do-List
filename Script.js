@@ -79,16 +79,6 @@ function closeSidenav(){
     document.getElementById("mySidenav").style.width="0";
 }
 
-//Display content in mainpage
-// function showContent(id) {
-//     // Hide all content divs
-//     document.querySelectorAll('#taskList').forEach(article => {
-//         article.classList.remove('active');
-//     });
-
-//     // Show the selected div
-//     document.getElementById(id).classList.add('active');
-// }
 function showContent(id) {
     // Hide all sections
     document.querySelectorAll('.content').forEach(section => {
@@ -98,7 +88,7 @@ function showContent(id) {
 
     // Show the selected section
     document.getElementById(id).classList.add('active');
-    document.getElementById(id).style.display = "block"; // Show selected section
+    document.getElementById(id).style.display = "flex"; // Show selected section
 
     // Keep the "All Tasks 🎯" title always visible
     if (id === "completedTasks") {

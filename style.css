@@ -445,6 +445,8 @@ header{
 .taskUppercontent{
     display: flex;
     align-items: center;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .taskCheckbox {
@@ -458,8 +460,32 @@ header{
 }
 
 .taskTitle{
-    margin-left: 10px;
     font-weight: 500;
+}
+
+.taskDetails{
+    white-space: nowrap;
+    width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    align-items: center;
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+#taskList {
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 10px;
+    width: 50%; /* Adjust width as needed */
+    height: 520px; /* Fixed height */
+    margin: 20px auto; /* Centering */
+    overflow-y: auto; /* Enables scrolling */
+    background-color: white; /* To make sure content is visible */
+    display: flex;
+    flex-direction: column; /* Ensures tasks align from top */
+    justify-content: flex-start; /* Ensures tasks start from the top */
 }
 
 .schedhuleContent textarea{
@@ -515,9 +541,14 @@ header{
     display: block;
 }
 
-
-.options{
-    padding-left: 40px;
+.taskItem{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    width: 30%; /* Adjust to ensure spacing */
+    text-align: center;
 }
 
 .options button{
@@ -537,6 +568,8 @@ header{
 .taskLowercontent{
     display: grid;
 }
+
+
 /*Date Popup*/
 
 .datePopup {
