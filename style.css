@@ -485,6 +485,36 @@ header{
     background-color: white; /* To make sure content is visible */
     display: flex;
     flex-direction: column; /* Ensures tasks align from top */
+    justify-content: space-between; /* Ensures tasks start from the top */
+    text-align: center;
+    align-items: center;
+}
+
+#completedTaskList{
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 10px;
+    width: 50%; /* Adjust width as needed */
+    height: 520px; /* Fixed height */
+    margin: 20px auto; /* Centering */
+    overflow-y: auto; /* Enables scrolling */
+    background-color: white; /* To make sure content is visible */
+    display: flex;
+    flex-direction: column; /* Ensures tasks align from top */
+    justify-content: flex-start; /* Ensures tasks start from the top */
+}
+
+#upcomingTaskList{
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 10px;
+    width: 50%; /* Adjust width as needed */
+    height: 520px; /* Fixed height */
+    margin: 20px auto; /* Centering */
+    overflow-y: auto; /* Enables scrolling */
+    background-color: white; /* To make sure content is visible */
+    display: flex;
+    flex-direction: column; /* Ensures tasks align from top */
     justify-content: flex-start; /* Ensures tasks start from the top */
 }
 
@@ -708,6 +738,11 @@ header{
 }
 
 #completedTasks {
+    min-height: 100px; /* Ensures space remains */
+    visibility: visible; /* Keeps element space even if empty */
+}
+
+#upcomingTasks {
     min-height: 100px; /* Ensures space remains */
     visibility: visible; /* Keeps element space even if empty */
 }

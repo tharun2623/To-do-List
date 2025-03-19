@@ -1,12 +1,14 @@
-let uname        = document.getElementById('uname');
-let upassword    = document.getElementById('upassword');
-const modal = document.querySelector('#my-modal');
-const closeBtn = document.querySelector('.close');
-const userArr = [];
+let uname         = document.getElementById('uname');
+let upassword     = document.getElementById('upassword');
+const modal       = document.querySelector('#my-modal');
+const closeBtn    = document.querySelector('.close');
+const userArr     = [];
+const arrUsers    = [];
+const arrPassword = [];
 
+
+//Login Details
 function login(){
-
-    console.log(uname);
     
     if (uname.value === "" || upassword.value === "") {
         alert('Please fill in both the username and password.');
@@ -14,25 +16,31 @@ function login(){
         return;
     }
 
-    if(uname.value === 'Tharun'){
-        if(upassword.value === 'html123'){
-            window.location.href='mainpage.html';
-            userNamedisplay();
-            console.log(userNamedisplay());
-        } else {
-            document.getElementById('wrongPassword').style.display='block';
-            emptyValue()
-            setTimeout(() => {
-                document.getElementById('wrongPassword').style.display='none';
-        }   , 3000);
-        }
+    const userData = 
+        [
+            {userName: "Tharun",Password:"html123"},
+            {userName: "Vishnu",Password:"Vishnu"},
+            {userName: "Gowtham",Password:"Gowtham"},
+            {userName: "Sanjay",Password:"Sanjay"},
+            {userName: "Varun",Password:"Varun"}
+        ]
+
+    const user = userData.find(user => user.userName === uname.value.trim() && user.Password === upassword.value.trim());
+
+    console.log(user);
+
+    if(user){
+        localStorage.setItem('User',JSON.stringify(user));
+        console.log(localStorage.getItem('User'));
+        window.location.href = 'mainpage.html';
     } else {
-        document.getElementById('wrongUser').style.display='block';
-        emptyValue()
+        document.getElementById('wrongUser').style.display = 'block';
+        emptyValue();
         setTimeout(() => {
-            document.getElementById('wrongUser').style.display='none';
+            document.getElementById('wrongUser').style.display = 'none';
         }, 3000);
     }
+
 }
 
 function emptyValue(){
@@ -44,31 +52,26 @@ function viewPassword(){
     upassword.type=upassword.type==="password"?"text":"password";
 }
 
-function userNamedisplay(){
-    const userName = {
-        Username: uname.value,
-        firstLetter: uname.value.charAt(0)
-    };
 
-    userArr.push(userName);
-
-    const loginContainer = document.querySelector(".user-info");
-
-    const loginElement = document.createElement("section");
-    loginElement.classList.add("loginItem");
-
-    loginElement.innerHTML=`
-        <section class="profile-pic">${Username.firstLetter}</section>
-        <span class="mainUsername">${userName.Username}</span>
-    `;
-
-    loginContainer.appendChild(loginElement);
-}
 /*------------------------------------tharun.html------------------------------------*/
 
 const toggleButton = document.getElementById('toggle-btn');
 const sidebar      = document.getElementById('sidebar');
 const navbar       = document.getElementById("navbarContainer");
+
+
+//Display the User name
+function displayUserInfo(){
+    const storedUser = JSON.parse(localStorage.getItem('User'));
+
+    if (storedUser) {
+        document.querySelector('.user-info').innerHTML = `
+            <section class="profile-pic">${storedUser.userName.charAt(0).toUpperCase()}</section>
+            <span class="mainUsername">${storedUser.userName}</span>
+        `;
+    }
+
+}
 
 //Side Bar Action
 function openSidenav(){
@@ -79,22 +82,26 @@ function closeSidenav(){
     document.getElementById("mySidenav").style.width="0";
 }
 
-function showContent(id) {
+// Clear storage and goes back to Login page
+function logOut() {
+    localStorage.removeItem("User");
+    window.location.href = "login.html"; // Redirect to the first page
+}
+
+//Showing the Content through Sections
+function showContent(id) {   
+   
     // Hide all sections
     document.querySelectorAll('.content').forEach(section => {
         section.classList.remove('active');
-        section.style.display = "none"; // Hide all sections
+        section.style.display = "none"; 
     });
 
     // Show the selected section
-    document.getElementById(id).classList.add('active');
-    document.getElementById(id).style.display = "flex"; // Show selected section
-
-    // Keep the "All Tasks 🎯" title always visible
-    if (id === "completedTasks") {
-        document.querySelector(".Tasktitle").style.display = "none";
-    } else {
-        document.querySelector(".Tasktitle").style.display = "block";
+    const selectedSection = document.getElementById(id);
+    if (selectedSection) {
+        selectedSection.classList.add('active');
+        selectedSection.style.display = "block"; 
     }
 }
 
@@ -119,6 +126,14 @@ document.querySelectorAll(".close-btn").forEach(button => {
     });
 });
 
+//Flat time picker
+flatpickr("#timeInput", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+    time_24hr: true
+});
+
 //Add Popup
 function openModal() {
     modal.style.display = 'flex';
@@ -135,15 +150,15 @@ function outsideClick(e) {
 }
 window.addEventListener('click', outsideClick);
 
-
+// Task Insertion
 const arrAddtask = [];
 
-// Task Insertion
 function addTask() {
     const values = {
         title: document.querySelector(".textInput").value,
         desc: document.querySelector(".textAreainput").value,
         date: document.querySelector(".dateInput").value,
+        time: document.querySelector(".timeInput").value,
         priority: document.querySelector(".form-select").value
     };
 
@@ -181,10 +196,16 @@ function addTask() {
     // Append task to container
     taskContainer.appendChild(taskElement);
 
+    //Store it in a local storage
+    localStorage.setItem('Tasks',JSON.stringify(arrAddtask));
+
+    console.log(localStorage.getItem('Tasks'));
+
     // Clear input fields
     document.querySelector(".textInput").value = "";
     document.querySelector(".textAreainput").value = "";
     document.querySelector(".dateInput").value = "";
+    document.querySelector(".timeInput").value = "";
     document.querySelector(".form-select").value = "";
 
     closeModal(); // Close the modal after adding a task
@@ -194,3 +215,5 @@ function addTask() {
 function deleteTask(button) {
     button.closest(".taskItem").remove(); // Remove the task item from DOM
 }
+
+
