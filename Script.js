@@ -105,16 +105,6 @@ function showContent(id) {
     }
 }
 
-
-//Date Popup
-function dateClick(){
-    document.querySelector(".datePopup").style.display = "block";
-}
-
-document.querySelector(".close-btn").addEventListener("click", function() {
-    document.querySelector(".datePopup").style.display = "none";
-});
-
 //Priority Popup
 function priorityClick(){
     document.querySelector(".priorityPopup").style.display = "block";
@@ -126,13 +116,57 @@ document.querySelectorAll(".close-btn").forEach(button => {
     });
 });
 
-//Flat time picker
-flatpickr("#timeInput", {
-    enableTime: true,
-    noCalendar: true,
-    dateFormat: "H:i",
-    time_24hr: true
+//Time picker
+let selectedHour = "";
+let selectedMinute = "";
+
+document.addEventListener("DOMContentLoaded", function() {
+    let timeInput = document.getElementById('timeInput');
+
+    let currentTime = new Date();
+    let formattedTime = currentTime.getHours().toString().padStart(2, '0') + ':' + currentTime.getMinutes().toString().padStart(2, '0');
+
+    // Set default value in input field
+    timeInput.value = formattedTime;
+
+    // Initialize Flatpickr
+    flatpickr("#timeInput", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true,
+        defaultDate: formattedTime,
+        allowInput: true,  // Allow manual typing
+        onClose: function(selectedDates, dateStr, instance) {
+            validateTimeInput();
+        },
+        onChange: function(selectedDates, dateStr, instance) {
+            [selectedHour, selectedMinute] = dateStr.split(':');
+            console.log("Stored Hour:", selectedHour);
+            console.log("Stored Minute:", selectedMinute);
+        }
+    });
+
+    // Function to validate typed input
+    function validateTimeInput() {
+        let typedTime = timeInput.value.trim();
+        let timeParts = typedTime.split(':');
+
+        if (timeParts.length === 2) {
+            let hours = parseInt(timeParts[0], 10);
+            let minutes = parseInt(timeParts[1], 10);
+
+            if (isNaN(hours) || isNaN(minutes) || hours > 23 || minutes > 59) {
+                alert("Invalid time! Please enter a valid 24-hour format (HH:MM).");
+                timeInput.value = formattedTime;  // Reset to last valid time
+            }
+        } else {
+            alert("Invalid format! Use HH:MM (24-hour).");
+            timeInput.value = formattedTime;
+        }
+    }
 });
+
 
 //Add Popup
 function openModal() {
@@ -151,16 +185,23 @@ function outsideClick(e) {
 window.addEventListener('click', outsideClick);
 
 // Task Insertion
-const arrAddtask = [];
+let arrAddtask = JSON.parse(localStorage.getItem('Tasks')) || [];
 
 function addTask() {
+    const taskTitle = document.querySelector(".textInput").value; // To get the title as unique id
+
     const values = {
-        title: document.querySelector(".textInput").value,
+        title: taskTitle,
         desc: document.querySelector(".textAreainput").value,
         date: document.querySelector(".dateInput").value,
-        time: document.querySelector(".timeInput").value,
+        time: document.querySelector("#timeInput").value,
         priority: document.querySelector(".form-select").value
-    };
+    }; // Storing the values in the object
+    
+    if(!values.title || !values.desc || !values.date || !values.time || !values.priority){
+        alert("Enter all the fields to create a task!")
+        return; //Will push out by not creating a task
+    }
 
     // Push task to array
     arrAddtask.push(values);
@@ -186,7 +227,7 @@ function addTask() {
                 
                 <section class="options">
                     <button type="button" aria-label="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button type="button" aria-label="Delete" onclick="deleteTask(this)"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" aria-label="Delete" onclick="deleteTask('${values.title}',this)"><i class="fa-solid fa-trash"></i></button>
                 </section>
             </section>
                               
@@ -205,15 +246,73 @@ function addTask() {
     document.querySelector(".textInput").value = "";
     document.querySelector(".textAreainput").value = "";
     document.querySelector(".dateInput").value = "";
-    document.querySelector(".timeInput").value = "";
+    document.querySelector("#timeInput").value = "";
     document.querySelector(".form-select").value = "";
 
     closeModal(); // Close the modal after adding a task
 }
 
 // Function to delete a task
-function deleteTask(button) {
-    button.closest(".taskItem").remove(); // Remove the task item from DOM
+function deleteTask(taskTitle, button) {
+    if (!button) {
+        console.error("Delete button is undefined");
+        return;
+    }
+
+    console.log("Before deletion:", arrAddtask);
+
+    // Create a new array after filtering the task
+    let updatedTasks = arrAddtask.filter(task => task.title.trim() !== taskTitle.trim());
+
+    console.log("After deletion:", updatedTasks);
+
+    // Update the global array reference
+    arrAddtask = updatedTasks;
+
+    // Store updated tasks in local storage
+    localStorage.setItem('Tasks', JSON.stringify(updatedTasks));
+
+    // Verify if local storage is updated
+    console.log("Local Storage after update:", JSON.parse(localStorage.getItem('Tasks')));
+
+    // Remove task from UI
+    button.closest(".taskItem").remove();
 }
 
+// Function to load tasks from localStorage and display them in the UI
+function loadTasks() {
+    const taskContainer = document.querySelector("#taskList");
+    taskContainer.innerHTML = ""; // Clear existing tasks in UI
 
+    arrAddtask = JSON.parse(localStorage.getItem('Tasks')) || [];
+
+    arrAddtask.forEach(values => {
+        const taskElement = document.createElement("section");
+        taskElement.classList.add("taskItem");
+
+        taskElement.innerHTML = `
+            <article class="myTaskcontent">
+                <section class="taskUppercontent">                      
+                    <section class="taskCheckbox">
+                        <input type="checkbox" id="customCheckbox">
+                        <label for="customCheckbox"></label>
+                    </section>
+                    
+                    <section class="taskDetails">
+                        <span class="taskTitle">${values.title}</span>
+                    </section>
+                    
+                    <section class="options">
+                        <button type="button" aria-label="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button type="button" aria-label="Delete" onclick="deleteTask('${values.title}', this)"><i class="fa-solid fa-trash"></i></button>
+                    </section>
+                </section>                              
+            </article>
+        `;
+
+        taskContainer.appendChild(taskElement);
+    });
+}
+
+// Load tasks when the page loads
+document.addEventListener("DOMContentLoaded", loadTasks);

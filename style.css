@@ -485,7 +485,6 @@ header{
     background-color: white; /* To make sure content is visible */
     display: flex;
     flex-direction: column; /* Ensures tasks align from top */
-    justify-content: space-between; /* Ensures tasks start from the top */
     text-align: center;
     align-items: center;
 }
