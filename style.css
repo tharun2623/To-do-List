@@ -503,7 +503,7 @@ header{
     justify-content: flex-start; /* Ensures tasks start from the top */
 }
 
-#upcomingTaskList{
+#progressTaskList{
     border: 2px solid black;
     border-radius: 12px;
     padding: 10px;
@@ -741,7 +741,7 @@ header{
     visibility: visible; /* Keeps element space even if empty */
 }
 
-#upcomingTasks {
+#progressTasks {
     min-height: 100px; /* Ensures space remains */
     visibility: visible; /* Keeps element space even if empty */
 }

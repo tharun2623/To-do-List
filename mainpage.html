@@ -67,13 +67,9 @@
                             <li onclick="showContent('completedTasks')">
                                 <span><i class="fa-solid fa-check"></i><a onclick="showContent('completedTasks')" href="#">Completed Tasks</a></span>
                             </li>
-                        
-                            <li onclick="showContent('upcomingTasks')">
-                                <span><i class="fa-solid fa-spinner"></i><a onclick="showContent('upcomingTasks')" href="#">Upcoming Tasks</a></span>
-                            </li>
 
-                            <li onclick="showContent('progressList')">
-                                <span><i class="fa-solid fa-list-check"></i><a onclick="showContent('progressList')" href="">Progress</a></span>
+                            <li onclick="showContent('progressTasks')">
+                                <span><i class="fa-solid fa-list-check"></i><a onclick="showContent('progressTasks')" href="#">Progress</a></span>
                             </li>
                         
                             <li>
@@ -110,15 +106,15 @@
                     </section>
                     <section id="completedTaskList"></section>
                 </section>
-                
-                <section id="upcomingTasks" class="content">
+
+                <section id="progressTasks" class="content">
                     <section>
                         <article class="Tasktitle">
-                            <h2>Upcoming Tasks ⬇️</h2>
+                            <h2>Progress Tasks 🔄</h2>
                         </article>
                     </section>
-                    <section id="upcomingTaskList"></section>
-                </section> 
+                    <section id="progressTaskList"></section>
+                </section>
 
             </main>                           
 
