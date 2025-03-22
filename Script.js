@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-
+``
 //Add Popup
 function openModal() {
     modal.style.display = 'flex';
@@ -185,7 +185,36 @@ function outsideClick(e) {
 window.addEventListener('click', outsideClick);
 
 // Task Insertion
-let arrAddtask = JSON.parse(localStorage.getItem('Tasks')) || [];
+let arrAddtask = [
+    {   
+        title: 'My Task',
+        desc: 'Working fine',
+        time: '02:20',
+        priority: 'High'
+    },
+    {   
+        title: 'My Task2',
+        desc: 'Asal kolar',
+        time: '02:20',
+        priority: 'Low'
+    },
+    {   
+        title: 'My Task3',
+        desc: 'Kolar Asal',
+        time: '02:20',
+        priority: 'Moderate'
+    },
+    {   
+        title: 'My Task4',
+        desc: 'Baasha',
+        time: '02:20',
+        priority: 'High'
+    }
+];
+
+window.document.addEventListener('DOMContentLoaded', () => {
+    loadTasks();
+});
 
 function addTask() {
     const taskTitle = document.querySelector(".textInput").value; // To get the title as unique id
@@ -237,11 +266,6 @@ function addTask() {
     // Append task to container
     taskContainer.appendChild(taskElement);
 
-    //Store it in a local storage
-    localStorage.setItem('Tasks',JSON.stringify(arrAddtask));
-
-    console.log(localStorage.getItem('Tasks'));
-
     // Clear input fields
     document.querySelector(".textInput").value = "";
     document.querySelector(".textAreainput").value = "";
@@ -259,21 +283,8 @@ function deleteTask(taskTitle, button) {
         return;
     }
 
-    console.log("Before deletion:", arrAddtask);
-
     // Create a new array after filtering the task
     let updatedTasks = arrAddtask.filter(task => task.title.trim() !== taskTitle.trim());
-
-    console.log("After deletion:", updatedTasks);
-
-    // Update the global array reference
-    arrAddtask = updatedTasks;
-
-    // Store updated tasks in local storage
-    localStorage.setItem('Tasks', JSON.stringify(updatedTasks));
-
-    // Verify if local storage is updated
-    console.log("Local Storage after update:", JSON.parse(localStorage.getItem('Tasks')));
 
     // Remove task from UI
     button.closest(".taskItem").remove();
@@ -284,7 +295,7 @@ function loadTasks() {
     const taskContainer = document.querySelector("#taskList");
     taskContainer.innerHTML = ""; // Clear existing tasks in UI
 
-    arrAddtask = JSON.parse(localStorage.getItem('Tasks')) || [];
+    // arrAddtask = JSON.parse(localStorage.getItem('Tasks')) || [];
 
     arrAddtask.forEach(values => {
         const taskElement = document.createElement("section");
@@ -316,3 +327,10 @@ function loadTasks() {
 
 // Load tasks when the page loads
 document.addEventListener("DOMContentLoaded", loadTasks);
+
+//List Selection to display in the Completed Tasks
+function checkbox() {
+    let checkBox = document.querySelector("#customCheckbox");
+    
+    console.log()
+}
