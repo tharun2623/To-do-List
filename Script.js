@@ -244,19 +244,15 @@ function addTask() {
 
     taskElement.innerHTML = `
         <article class="myTaskcontent">
-            <section class="taskUppercontent">                      
-                <section class="taskCheckbox">
-                    <input type="checkbox" id="customCheckbox">
-                    <label for="customCheckbox"></label>
-                </section>
+            <section class="taskUppercontent">
                 
-                <section class="taskDetails">
+                <section class="taskDetails" onclick="loadCompletedTasks(${arrAddtask.indexOf(values)})">
                     <span class="taskTitle">${values.title}</span>
                 </section>
                 
                 <section class="options">
                     <button type="button" aria-label="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button type="button" aria-label="Delete" onclick="deleteTask('${values.title}',this)"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" aria-label="Delete" onclick="deleteTask(${values.title})"><i class="fa-solid fa-trash"></i></button>
                 </section>
             </section>
                               
@@ -297,19 +293,14 @@ function loadTasks() {
 
     // arrAddtask = JSON.parse(localStorage.getItem('Tasks')) || [];
 
-    arrAddtask.forEach(values => {
+    arrAddtask.forEach((values,index) => {
         const taskElement = document.createElement("section");
         taskElement.classList.add("taskItem");
 
         taskElement.innerHTML = `
             <article class="myTaskcontent">
                 <section class="taskUppercontent">                      
-                    <section class="taskCheckbox">
-                        <input type="checkbox" id="customCheckbox">
-                        <label for="customCheckbox"></label>
-                    </section>
-                    
-                    <section class="taskDetails">
+                    <section class="taskDetails" onclick="loadCompletedTasks(${index})">
                         <span class="taskTitle">${values.title}</span>
                     </section>
                     
@@ -329,8 +320,92 @@ function loadTasks() {
 document.addEventListener("DOMContentLoaded", loadTasks);
 
 //List Selection to display in the Completed Tasks
-function checkbox() {
-    let checkBox = document.querySelector("#customCheckbox");
+let completedTasks = [];
+
+// document.querySelector("#taskList").addEventListener("change", function (e) {
     
-    console.log()
+//         let taskId = e.target.getAttribute("data-id"); // Get the task's unique ID
+//         let taskElement = e.target.closest(".myTaskcontent"); // Get the task container
+
+//         if (!taskId) return; // Ensure the task ID exists
+
+//         // Find the correct task object by ID
+//         let taskObj = arrAddtask.find(task => task.id === taskId);
+        
+//         if (taskObj) {
+//             console.log("Moving Task:", taskObj);
+
+//             // Remove from arrAddtask
+//             arrAddtask = arrAddtask.filter(task => task.id !== taskId);
+
+//             // Push the task to completedTasks
+//             completedTasks.push(taskObj);
+
+//             // Add fade-out effect before removing the element
+//             taskElement.style.transition = "opacity 0.5s ease-out";
+//             taskElement.style.opacity = "0";
+
+//             setTimeout(() => {
+//                 taskElement.remove();
+//                 loadCompletedTasks(); // Function to display completed tasks
+//             }, 500);
+//         }    
+// });
+
+function loadCompletedTasks(valueIndex) {
+
+    // remove and loaded tasks.
+    arrAddtask = arrAddtask.filter((task, index) => index !== valueIndex);
+    loadTasks();
+
+    const selectedTask = arrAddtask.filter((task, index) => index === valueIndex)[0];
+    if(selectedTask) {
+        completedTasks.push(selectedTask);
+    }
+
+    // 1. filter to remove the element and load the uncompleted tasks.
+    // 2. selectedTask to be push on completed task list
+    // let completedTaskList = document.querySelector("#completedTaskList");
+
+    // if (!completedTaskList) {
+    //     console.error("Completed Task Container Not Found!");
+    //     return;
+    // }
+
+    // // Clear previous content
+    // completedTaskList.innerHTML = "";
+
+    // // Add completed tasks to UI in the same structure as "All Tasks"
+    completedTasks && completedTasks.length > 0 && completedTasks.forEach((task,index) => {
+        console.log(completedTasks, "compleed")
+        let taskElement = document.createElement("section");
+        taskElement.classList.add("myTaskcontent"); // Same class as tasks in "All Tasks"
+
+        taskElement.innerHTML = `
+            <article class="myTaskcontent">
+                <section class="taskUppercontent">
+                    
+                    <section class="taskDetails">
+                        <span class="taskTitle">${task.title}</span>
+                    </section>
+                    
+                    <section class="options">
+                        <button type="button" aria-label="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                    </section>
+                </section>                              
+            </article>
+        `;
+        completedTaskList.appendChild(taskElement);
+    });
 }
+
+document.querySelectorAll('.taskDetails').forEach((task) => {
+    task.addEventListener("click", function () {
+        const taskData = JSON.parse(decodeURIComponent(this.getAttribute("data-task")));
+        loadCompletedTasks(taskData);
+    });
+});
+
+// Ensure completed tasks are loaded when the page loads
+document.addEventListener("DOMContentLoaded", loadCompletedTasks);
+
