@@ -319,65 +319,32 @@ function loadTasks() {
 // Load tasks when the page loads
 document.addEventListener("DOMContentLoaded", loadTasks);
 
-//List Selection to display in the Completed Tasks
+// List Selection to display in the Completed Tasks
 let completedTasks = [];
 
-// document.querySelector("#taskList").addEventListener("change", function (e) {
-    
-//         let taskId = e.target.getAttribute("data-id"); // Get the task's unique ID
-//         let taskElement = e.target.closest(".myTaskcontent"); // Get the task container
-
-//         if (!taskId) return; // Ensure the task ID exists
-
-//         // Find the correct task object by ID
-//         let taskObj = arrAddtask.find(task => task.id === taskId);
-        
-//         if (taskObj) {
-//             console.log("Moving Task:", taskObj);
-
-//             // Remove from arrAddtask
-//             arrAddtask = arrAddtask.filter(task => task.id !== taskId);
-
-//             // Push the task to completedTasks
-//             completedTasks.push(taskObj);
-
-//             // Add fade-out effect before removing the element
-//             taskElement.style.transition = "opacity 0.5s ease-out";
-//             taskElement.style.opacity = "0";
-
-//             setTimeout(() => {
-//                 taskElement.remove();
-//                 loadCompletedTasks(); // Function to display completed tasks
-//             }, 500);
-//         }    
-// });
-
 function loadCompletedTasks(valueIndex) {
+    // Get the selected task BEFORE removing it
+    const selectedTask = arrAddtask[valueIndex];
 
-    // remove and loaded tasks.
-    arrAddtask = arrAddtask.filter((task, index) => index !== valueIndex);
+    if (!selectedTask) return; // If no task found, exit
+
+    // Remove the selected task from arrAddtask
+    arrAddtask.splice(valueIndex, 1);
+
+    // Add the selected task to completedTasks array
+    completedTasks.push(selectedTask);
+
+    // Refresh UI for both task lists
     loadTasks();
+    loadCompletedTasksUI();
+}
 
-    const selectedTask = arrAddtask.filter((task, index) => index === valueIndex)[0];
-    if(selectedTask) {
-        completedTasks.push(selectedTask);
-    }
+// Function to update completed tasks UI
+function loadCompletedTasksUI() {
+    const completedTaskList = document.querySelector("#completedTaskList");
+    completedTaskList.innerHTML = ""; // Clear existing tasks
 
-    // 1. filter to remove the element and load the uncompleted tasks.
-    // 2. selectedTask to be push on completed task list
-    // let completedTaskList = document.querySelector("#completedTaskList");
-
-    // if (!completedTaskList) {
-    //     console.error("Completed Task Container Not Found!");
-    //     return;
-    // }
-
-    // // Clear previous content
-    // completedTaskList.innerHTML = "";
-
-    // // Add completed tasks to UI in the same structure as "All Tasks"
-    completedTasks && completedTasks.length > 0 && completedTasks.forEach((task,index) => {
-        console.log(completedTasks, "compleed")
+    completedTasks.forEach((task) => {
         let taskElement = document.createElement("section");
         taskElement.classList.add("myTaskcontent"); // Same class as tasks in "All Tasks"
 
@@ -398,6 +365,7 @@ function loadCompletedTasks(valueIndex) {
         completedTaskList.appendChild(taskElement);
     });
 }
+
 
 document.querySelectorAll('.taskDetails').forEach((task) => {
     task.addEventListener("click", function () {
