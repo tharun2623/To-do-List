@@ -750,6 +750,43 @@ header{
     display: none !important; /* Fully hides taskList when needed */
 }
 
+/*Edit modal popup*/
+.modal-body {
+    padding: 20px;
+}
+
+/* Form Fields */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Disabled Fields */
+.input-field:disabled {
+    background: #f3f3f3;
+    color: #888;
+}
+
+/* Save Button */
+.save-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: green;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.save-btn:hover {
+    background: #1a5103;
+}
 
 /* Optional: Add responsiveness */
 @media screen and (max-width: 600px) {

@@ -244,18 +244,18 @@ function addTask() {
 
     taskElement.innerHTML = `
         <article class="myTaskcontent">
-            <section class="taskUppercontent">
-                
+            
+            <section class="taskUppercontent">                
                 <section class="taskDetails" onclick="loadCompletedTasks(${arrAddtask.indexOf(values)})">
                     <span class="taskTitle">${values.title}</span>
                 </section>
                 
                 <section class="options">
-                    <button type="button" aria-label="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button type="button" aria-label="Delete" onclick="deleteTask(${values.title})"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" aria-label="Edit" onclick="openEditModal('${values.title}')"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button type="button" aria-label="Delete" onclick="deleteTask('${values.title}', this)"><i class="fa-solid fa-trash"></i></button>
                 </section>
             </section>
-                              
+
         </article>
     `;
 
@@ -272,18 +272,88 @@ function addTask() {
     closeModal(); // Close the modal after adding a task
 }
 
-// Function to delete a task
-function deleteTask(taskTitle, button) {
-    if (!button) {
-        console.error("Delete button is undefined");
+//Function to edit a task
+let currentEditingIndex = -1; // Store index of the task being edited
+
+function openEditModal(taskTitle) {
+    const modal = document.getElementById("editTaskModal");
+    modal.style.display = "flex"; // Show modal
+
+    // Find the task and populate fields
+    const taskIndex = arrAddtask.findIndex(task => task.title === taskTitle);
+    if (taskIndex === -1) return;
+
+    document.getElementById("editTaskTitle").value = arrAddtask[taskIndex].title;
+    document.getElementById("editTaskDesc").value = arrAddtask[taskIndex].desc;
+    document.getElementById("editTaskTime").value = arrAddtask[taskIndex].time;
+    document.getElementById("editTaskPriority").value = arrAddtask[taskIndex].priority;
+}
+
+function closeEditModal() {
+    document.getElementById("editTaskModal").style.display = "none";
+}
+
+// Close when clicking outside the modal
+window.onclick = function(event) {
+    const modal = document.getElementById("editTaskModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+function saveEditedTask() {
+    if (currentEditingIndex === -1) return; // No task is being edited
+
+    const newTitle = document.getElementById("editTaskTitle").value.trim();
+    
+    if (!newTitle) {
+        alert("Task title cannot be empty!");
         return;
     }
 
-    // Create a new array after filtering the task
-    let updatedTasks = arrAddtask.filter(task => task.title.trim() !== taskTitle.trim());
+    // Check if the new title already exists
+    if (arrAddtask.some(task => task.title === newTitle && task !== arrAddtask[currentEditingIndex])) {
+        alert("Task title must be unique!");
+        return;
+    }
 
-    // Remove task from UI
-    button.closest(".taskItem").remove();
+    // Update task title in the array
+    arrAddtask[currentEditingIndex].title = newTitle;
+
+    // Update UI manually instead of reloading everything
+    document.querySelectorAll(".taskItem")[currentEditingIndex].querySelector(".taskTitle").textContent = newTitle;
+
+    closeEditModal();
+}
+
+function closeEditModal() {
+    document.getElementById("editTaskModal").style.display = "none";
+    currentEditingIndex = -1; // Reset index
+} 
+
+// Function to delete a task
+function deleteTask(taskTitle, button) {
+    console.log("Trying to delete task:", taskTitle); // Debugging log
+    
+    if (!taskTitle) {
+        console.error("Task title is undefined or null!");
+        return;
+    }
+
+    // Find the index of the task to remove
+    const taskIndex = arrAddtask.findIndex(task => task.title === taskTitle);
+    
+    if (taskIndex !== -1) {
+        arrAddtask.splice(taskIndex, 1); // Remove task from array
+        
+        // Update UI
+        button.closest(".taskItem").remove();
+        
+        console.log("Task deleted successfully:", taskTitle);
+    } else {
+        console.error("Task not found in arrAddtask:", taskTitle);
+    }
 }
 
 // Function to load tasks from localStorage and display them in the UI
@@ -305,7 +375,7 @@ function loadTasks() {
                     </section>
                     
                     <section class="options">
-                        <button type="button" aria-label="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button type="button" aria-label="Edit" onclick="openEditModal('${values.title}')"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button type="button" aria-label="Delete" onclick="deleteTask('${values.title}', this)"><i class="fa-solid fa-trash"></i></button>
                     </section>
                 </section>                              
@@ -323,10 +393,10 @@ document.addEventListener("DOMContentLoaded", loadTasks);
 let completedTasks = [];
 
 function loadCompletedTasks(valueIndex) {
-    // Get the selected task BEFORE removing it
-    const selectedTask = arrAddtask[valueIndex];
+    if (valueIndex < 0 || valueIndex >= arrAddtask.length) return; // Prevent errors
 
-    if (!selectedTask) return; // If no task found, exit
+    // Get the selected task
+    const selectedTask = { ...arrAddtask[valueIndex] }; // Clone the task
 
     // Remove the selected task from arrAddtask
     arrAddtask.splice(valueIndex, 1);
@@ -346,16 +416,14 @@ function loadCompletedTasksUI() {
 
     completedTasks.forEach((task) => {
         let taskElement = document.createElement("section");
-        taskElement.classList.add("myTaskcontent"); // Same class as tasks in "All Tasks"
+        taskElement.classList.add("myTaskcontent");
 
         taskElement.innerHTML = `
             <article class="myTaskcontent">
                 <section class="taskUppercontent">
-                    
                     <section class="taskDetails">
                         <span class="taskTitle">${task.title}</span>
                     </section>
-                    
                     <section class="options">
                         <button type="button" aria-label="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
                     </section>

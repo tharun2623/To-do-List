@@ -173,6 +173,35 @@
                 </section>
             </article>
         </div>
+
+        <!--Edit popup-->
+        <section id="editTaskModal" class="modal">
+            <section class="modal-content">
+                <section class="modal-header">
+                    <h5 class="modal-title">Edit Task</h5>
+                    <button id="closebtn" type="button" class="btn-close btn-close-white" onclick="closeEditModal()"></button>
+                </section>
+                
+                <section class="modal-body">
+                    <section class="contents">
+                        <label>Task Title:</label>
+                        <input type="text" id="editTaskTitle" class="input-field" />
+                        
+                        <label>Description:</label>
+                        <input type="text" id="editTaskDesc" class="input-field" disabled />
+                        
+                        <label>Time:</label>
+                        <input type="text" id="editTaskTime" class="input-field" disabled />
+                        
+                        <label>Priority:</label>
+                        <input type="text" id="editTaskPriority" class="input-field" disabled />
+                        
+                        <button class="save-btn" onclick="saveEditedTask()">Save Changes</button>
+                    </section>
+                </section>
+            </section>
+        </section>        
+        
         
         <!--Script.JS-->
         <script src="Script.js"></script>
